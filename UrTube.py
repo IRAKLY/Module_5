@@ -10,11 +10,11 @@ class User:
     def hash_password(self, password):
         return hash(password)
 
-    def __str__(self):
-        return self.nickname
+    def __eq__(self, other):
+        return self.nickname == other.nickname
 
     def __repr__(self):
-        return f"User(nickname={self.nickname}, age={self.age})"
+        return self.nickname
 
 
 class Video:
@@ -24,8 +24,8 @@ class Video:
         self.time_now = time_now
         self.adult_mode = adult_mode
 
-    def __str__(self):
-        return f"Video(title={self.title}, duration={self.duration}, adult_mode={self.adult_mode})"
+    def __eq__(self, other):
+        return self.title.lower() == other.title.lower()
 
     def __repr__(self):
         return self.title
@@ -49,7 +49,7 @@ class UrTube:
     def register(self, nickname, password, age):
         new_user = User(nickname, password, age)
         if new_user in self.users:
-            print(f'Пользователь с таким {nickname} уже существует')
+            print(f'Пользователь {nickname} уже существует')
         else:
             self.users.append(new_user)
             self.current_user = new_user
